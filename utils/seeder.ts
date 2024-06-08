@@ -49,6 +49,7 @@ function createHospitals() {
       plans: [plans[3], plans[4]],
     },
   ];
+  return hospitals;
 }
 
 interface HospitalDTO {
@@ -96,10 +97,18 @@ interface PlanToHospitalDTO {
   hospital: IHospital;
 }
 
+function checkIfPlanExists(id: number, hospital: IHospital) {
+  if (hospital.plans.find((plan) => plan.id === id) !== undefined) return true;
+  return false;
+}
+
 function addPlanToHospital(dto: PlanToHospitalDTO) {
+  if (checkIfPlanExists(dto.plan.id, dto.hospital))
+    return dto.hospital.plans.push(dto.plan);
+}
+
+function removePlanFromHospital(dto: PlanToHospitalDTO) {
   if (dto.hospital.plans.find((plan) => plan.id === dto.plan.id)) {
-    // TODO: Add Response
-    return undefined;
+    return dto.hospital.plans.filter((plan) => plan !== dto.plan);
   }
-  return dto.hospital.plans.push(dto.plan);
 }
