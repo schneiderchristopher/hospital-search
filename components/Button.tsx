@@ -30,20 +30,6 @@ const Button = styled.button<ButtonProps>`
     if (props.variant === "accent") return accent;
     return primary;
   }}
-  &.primary {
-    background-color: var(--button-primary-bg);
-    color: var(--button-primary-text);
-  }
-
-  &.secondary {
-    background-color: var(--button-secondary-bg);
-    color: var(--button-secondary-text);
-  }
-
-  &.accent {
-    background-color: var(--button-accent-bg);
-    color: var(--button-accent-text);
-  }
 
   &:hover {
     opacity: 0.9;
