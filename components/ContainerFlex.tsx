@@ -24,6 +24,11 @@ interface FlexContainerProps {
   width?: string;
   height?: string;
   bgColor?: string;
+  position?: "relative" | "absolute" | "fixed" | "sticky";
+  top?: string;
+  right?: string;
+  bottom?: string;
+  left?: string;
 }
 
 const FlexContainer = styled.div<FlexContainerProps>`
@@ -38,6 +43,11 @@ const FlexContainer = styled.div<FlexContainerProps>`
   width: ${(props) => props.width || "auto"};
   height: ${(props) => props.height || "auto"};
   background-color: ${(props) => props.bgColor || "transparent"};
+  position: ${(props) => props.position || "static"};
+  top: ${(props) => props.top || "auto"};
+  right: ${(props) => props.right || "auto"};
+  bottom: ${(props) => props.bottom || "auto"};
+  left: ${(props) => props.left || "auto"};
 `;
 
 export default FlexContainer;
