@@ -1,7 +1,7 @@
 import { IHospital } from "@/models/hospital";
 import { IPlan } from "@/models/plan";
 
-function createPlans() {
+export function createPlans() {
   const plans: IPlan[] = [
     {
       id: 1,
@@ -27,7 +27,7 @@ function createPlans() {
   return plans;
 }
 
-function createHospitals() {
+export function createHospitals() {
   const plans = createPlans();
   const hospitals: IHospital[] = [
     {
@@ -57,13 +57,15 @@ interface HospitalDTO {
   hospitalsRef: IHospital[];
 }
 
-function addHospital(dto: HospitalDTO) {
+export function addHospital(dto: HospitalDTO) {
+  if (dto.hospitalsRef.find((hospital) => hospital.id === dto.hospital.id))
+    return dto.hospitalsRef;
   dto.hospitalsRef.push(dto.hospital);
   return dto.hospitalsRef;
 }
 
-function removeHospital(dto: HospitalDTO) {
-  return dto.hospitalsRef.filter((hospital) => hospital != dto.hospital);
+export function removeHospital(dto: HospitalDTO) {
+  return dto.hospitalsRef.filter((hospital) => hospital.id != dto.hospital.id);
 }
 
 function updateHospital(dto: HospitalDTO) {
@@ -78,7 +80,8 @@ interface PlanDTO {
   plansRef: IPlan[];
 }
 
-function addPlan(dto: PlanDTO) {
+export function addPlan(dto: PlanDTO) {
+  if (dto.plansRef.find((plan) => plan.id === dto.plan.id)) return dto.plansRef;
   dto.plansRef.push(dto.plan);
   return dto.plansRef;
 }
