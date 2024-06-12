@@ -1,95 +1,71 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { createHospitals, createPlans } from "@/utils/seeder";
+import { useCallback, useEffect, useState } from "react";
+import FlexContainer from "@/components/ContainerFlex";
+import { H1, H2 } from "@/components/Typography";
+import Search from "@/components/Search";
+import HospitalCard from "@/components/Hospital/HospitalCard/HospitalCard";
+import { useDebounce } from "use-debounce";
 
 export default function Home() {
+  const [hospitals, setHospitals] = useState(createHospitals());
+  const [filteredHospitals, setFilteredHospitals] = useState(hospitals);
+  const [query, setQuery] = useState("");
+  const [debounceQuery] = useDebounce(query, 800);
+
+  const handleSearch = (query: string) => {
+    if (query === "") {
+      setFilteredHospitals(hospitals);
+    } else {
+      setQuery(query);
+    }
+  };
+
+  const filterHospitals = useCallback(
+    (query: string) => {
+      const filtered = hospitals.filter((hospital) => {
+        return (
+          hospital.name.toLowerCase().includes(query.toLowerCase()) ||
+          hospital.plans.some((plan) =>
+            plan.name.toLowerCase().includes(query.toLowerCase())
+          )
+        );
+      });
+      setFilteredHospitals(filtered);
+    },
+    [hospitals]
+  );
+
+  useEffect(() => {
+    filterHospitals(debounceQuery);
+  }, [debounceQuery, filterHospitals]);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <FlexContainer
+      direction="column"
+      width="100%"
+      justify="center"
+      align="center"
+      height="100vh"
+    >
+      <H1>Hospital Search</H1>
+      <H2>Search Hospital by name or plan.</H2>
+      <Search placeholder="Search Hopistals/Plans..." onSearch={handleSearch} />
+      <FlexContainer height="50%">
+        <ul>
+          {filteredHospitals.map((hospital) => (
+            <HospitalCard
+              key={hospital.id}
+              id={hospital.id}
+              name={hospital.name}
+              location={hospital.location}
+              plans={hospital.plans}
+              hospitals={hospitals}
+              setHospitals={setHospitals}
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          ))}
+        </ul>
+      </FlexContainer>
+    </FlexContainer>
   );
 }

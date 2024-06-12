@@ -47,6 +47,7 @@ const Search: React.FC<SearchProps> = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
+    onSearch(e.target.value);
   };
 
   return (
