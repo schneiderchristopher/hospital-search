@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import TagItem from "./Tag/Tag";
 import { IPlan } from "@/models/plan";
+import { IHospital } from "@/models/hospital";
 import IconButton from "../../IconButton";
 import { FaTrash } from "react-icons/fa6";
 import FlexContainer from "../../ContainerFlex";
 import DeleteModal from "./DeleteModal/DeleteModal";
+import { removeHospital } from "@/utils/seeder";
 
 import {
   CardContainer,
@@ -14,12 +16,22 @@ import {
 } from "./HospitalCard.styled";
 
 interface CardProps {
+  id: number;
   name: string;
   location: string;
-  tags: IPlan[];
+  plans: IPlan[];
+  hospitals: IHospital[];
+  setHospitals: Dispatch<SetStateAction<IHospital[]>>;
 }
 
-const HospitalCard: React.FC<CardProps> = ({ name, location, tags }) => {
+const HospitalCard: React.FC<CardProps> = ({
+  id,
+  name,
+  location,
+  plans,
+  hospitals,
+  setHospitals,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -27,7 +39,13 @@ const HospitalCard: React.FC<CardProps> = ({ name, location, tags }) => {
   };
 
   const handleDelete = () => {
-    console.log("Delete Hospital");
+    setHospitals(
+      removeHospital({
+        hospital: { id, name, location, plans },
+        hospitalsRef: hospitals,
+      })
+    );
+    setIsOpen(false);
   };
 
   return (
@@ -42,8 +60,8 @@ const HospitalCard: React.FC<CardProps> = ({ name, location, tags }) => {
         </IconButton>
       </FlexContainer>
       <TagsContainer>
-        {tags.map((tag) => (
-          <TagItem key={tag.id} name={tag.name} />
+        {plans.map((plans) => (
+          <TagItem key={plans.id} name={plans.name} />
         ))}
       </TagsContainer>
       <DeleteModal
