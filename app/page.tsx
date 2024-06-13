@@ -1,20 +1,20 @@
 "use client";
+import { useCallback, useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
+import FlexContainer from "@/components/ContainerFlex";
+import Search from "@/components/Search";
+import HospitalCard from "@/components/Hospital/HospitalCard/HospitalCard";
+import Button from "@/components/Button";
+import CreateHospitalModal from "@/components/Hospital/CreateHospitalModal/CreateHospitalModal";
+import { H1, H2 } from "@/components/Typography";
+import { createHospitalInput } from "@/schemas/Hospitals/CreateHospitalSchema";
+import { IHospital } from "@/models/hospital";
 import {
   addHospital,
   addPlan,
   createHospitals,
   createPlans,
 } from "@/utils/seeder";
-import { useCallback, useEffect, useState } from "react";
-import FlexContainer from "@/components/ContainerFlex";
-import { H1, H2 } from "@/components/Typography";
-import Search from "@/components/Search";
-import HospitalCard from "@/components/Hospital/HospitalCard/HospitalCard";
-import { useDebounce } from "use-debounce";
-import Button from "@/components/Button";
-import CreateHospitalModal from "@/components/Hospital/CreateHospitalModal/CreateHospitalModal";
-import { createHospitalInput } from "@/schemas/Hospitals/CreateHospitalSchema";
-import { IHospital } from "@/models/hospital";
 
 export default function Home() {
   const [hospitals, setHospitals] = useState(createHospitals());
