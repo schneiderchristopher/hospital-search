@@ -23,6 +23,7 @@
   --button-secondary-text: #ffffff;
   --button-accent-bg: var(--accent-color);
   --button-accent-text: #ffffff;
+  --button-border-color: #e0e0e0;
 
   /* Shadows and Highlights */
   --shadow-color: rgba(0, 0, 0, 0.1);
