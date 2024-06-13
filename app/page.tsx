@@ -6,6 +6,7 @@ import Search from "@/components/Search";
 import HospitalCard from "@/components/Hospital/HospitalCard/HospitalCard";
 import Button from "@/components/Button";
 import CreateHospitalModal from "@/components/Hospital/CreateHospitalModal/CreateHospitalModal";
+import PaginationGroup from "@/components/Pagination/PaginationGroup";
 import { H1, H2 } from "@/components/Typography";
 import { createHospitalInput } from "@/schemas/Hospitals/CreateHospitalSchema";
 import { IHospital } from "@/models/hospital";
@@ -18,12 +19,15 @@ import {
 
 export default function Home() {
   const [hospitals, setHospitals] = useState(createHospitals());
-  const [plans, setPlans] = useState(createPlans());
   const [filteredHospitals, setFilteredHospitals] = useState(hospitals);
+  const [plans, setPlans] = useState(createPlans());
   const [query, setQuery] = useState("");
   const [debounceQuery] = useDebounce(query, 800);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   const handleClick = () => {
     setIsOpen(true);
@@ -57,17 +61,20 @@ export default function Home() {
     };
 
     setHospitals(addHospital({ hospital, hospitalsRef: hospitals }));
-    setFilteredHospitals(hospitals);
+    setFilteredHospitals(
+      hospitals.slice((currentPage - 1) * 3, currentPage * 3)
+    );
+    setCurrentPage(Math.ceil(hospitals.length / 3));
     setQuery("");
     setIsOpen(false);
   };
 
   const handleSearch = (query: string) => {
-    if (query === "") {
-      setFilteredHospitals(hospitals);
-    } else {
-      setQuery(query);
-    }
+    setQuery(query);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   const filterHospitals = useCallback(
@@ -80,26 +87,43 @@ export default function Home() {
           )
         );
       });
-      setFilteredHospitals(filtered);
+      const start = (currentPage - 1) * 3;
+      const end = start + 3;
+      setFilteredHospitals(filtered.slice(start, end));
+      setTotalPages(Math.ceil(filtered.length / 3));
+      if (query === "") {
+        setTotalPages(Math.ceil(hospitals.length / 3));
+        setFilteredHospitals(hospitals.slice(start, end));
+      }
     },
-    [hospitals]
+    [hospitals, currentPage]
   );
 
   useEffect(() => {
     filterHospitals(debounceQuery);
   }, [debounceQuery, filterHospitals]);
 
+  useEffect(() => {
+    setTotalPages(Math.ceil(hospitals.length / 3));
+  }, [hospitals.length]);
+
+  useEffect(() => {
+    if (totalPages < currentPage) {
+      setCurrentPage(totalPages);
+    }
+  }, [totalPages, currentPage]);
+
   return (
     <FlexContainer
-      direction="column"
-      width="100%"
-      justify="center"
-      align="center"
-      height="100vh"
+      $direction="column"
+      $width="100%"
+      $justify="center"
+      $align="center"
+      $height="100vh"
     >
       <H1>Hospital Search</H1>
       <H2>Search Hospital by name or plan.</H2>
-      <FlexContainer gap="10px" width="100%" justify="center">
+      <FlexContainer $gap="10px" $width="100%" $justify="center">
         <Search
           placeholder="Search Hopistals/Plans..."
           onSearch={handleSearch}
@@ -107,11 +131,11 @@ export default function Home() {
         <Button onClick={handleClick}>Create new Hospital</Button>
       </FlexContainer>
 
-      <FlexContainer height="50%">
+      <FlexContainer $height="50%">
         <ul>
-          {filteredHospitals.map((hospital) => (
+          {filteredHospitals?.map((hospital) => (
             <HospitalCard
-              key={hospital.id}
+              key={hospital.id + hospital.name}
               id={hospital.id}
               name={hospital.name}
               location={hospital.location}
@@ -122,6 +146,11 @@ export default function Home() {
           ))}
         </ul>
       </FlexContainer>
+      <PaginationGroup
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onChange={handlePageChange}
+      />
       <CreateHospitalModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
