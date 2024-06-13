@@ -35,11 +35,11 @@ const Modal: React.FC<IModalProps> = ({
       onClick={onClose}
     >
       <FlexContainer
-        width={width || "500px"}
-        height={height || "auto"}
-        bgcolor="var(--surface-color)"
-        padding="2em"
-        position="relative"
+        $width={width || "500px"}
+        $height={height || "auto"}
+        $bgcolor="var(--surface-color)"
+        $padding="2em"
+        $position="relative"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

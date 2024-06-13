@@ -19,32 +19,32 @@ const DeleteModal: React.FC<IDeleteModalProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <FlexContainer
-        direction="column"
-        width="100%"
-        height="100%"
-        align="flex-start"
+        $direction="column"
+        $width="100%"
+        $height="100%"
+        $align="flex-start"
       >
         <H3>Are you sure you want to delete?</H3>
         <FlexContainer
-          justify="center"
-          align="flex-start"
-          gap="1em"
-          height="100%"
+          $justify="center"
+          $align="flex-start"
+          $gap="1em"
+          $height="100%"
         >
           <Text>This action cannot be undone.</Text>
         </FlexContainer>
 
         <FlexContainer
-          justify="flex-end"
-          align="center"
-          gap="0.5em"
-          margin="2em 0 0 0"
-          width="100%"
+          $justify="flex-end"
+          $align="center"
+          $gap="0.5em"
+          $margin="2em 0 0 0"
+          $width="100%"
         >
-          <Button variant="accent" onClick={onDelete}>
+          <Button $variant="accent" onClick={onDelete}>
             Delete
           </Button>
-          <Button variant="secondary" onClick={onClose}>
+          <Button $variant="secondary" onClick={onClose}>
             Cancel
           </Button>
         </FlexContainer>

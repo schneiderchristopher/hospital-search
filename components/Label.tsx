@@ -3,8 +3,8 @@ import styled from "styled-components";
 interface ILabelProps {
   htmlFor: string;
   children: React.ReactNode;
-  errorMesssage?: string;
-  required?: boolean;
+  $errorMesssage?: string;
+  $required?: boolean;
 }
 
 const LabelStyle = styled.label`
@@ -19,9 +19,9 @@ const LabelStyle = styled.label`
 
 const Label: React.FC<ILabelProps> = ({
   htmlFor,
-  children,
-  errorMesssage,
-  required,
+  children: children,
+  $errorMesssage: errorMesssage,
+  $required: required,
 }) => {
   return (
     <LabelStyle htmlFor={htmlFor}>

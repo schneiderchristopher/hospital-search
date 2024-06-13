@@ -50,8 +50,8 @@ const HospitalCard: React.FC<CardProps> = ({
 
   return (
     <CardContainer>
-      <FlexContainer justify="space-between" align="flex-start" width="100%">
-        <FlexContainer direction="column" align="flex-start">
+      <FlexContainer $justify="space-between" $align="flex-start" $width="100%">
+        <FlexContainer $direction="column" $align="flex-start">
           <Name>{name}</Name>
           <Location>{location}</Location>
         </FlexContainer>

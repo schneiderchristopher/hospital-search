@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 interface IButtonProps {
-  variant?: "primary" | "secondary" | "accent" | "text";
+  $variant?: "primary" | "secondary" | "accent" | "text";
 }
 
 const primary = css`
@@ -29,9 +29,9 @@ const Button = styled.button<IButtonProps>`
   }
 
   ${(props) => {
-    if (props.variant === "secondary") return secondary;
-    if (props.variant === "accent") return accent;
-    if (props.variant === "text") return text;
+    if (props.$variant === "secondary") return secondary;
+    if (props.$variant === "accent") return accent;
+    if (props.$variant === "text") return text;
     return primary;
   }}
 `;
@@ -55,7 +55,7 @@ const IconButton: React.FC<IIconProps> = ({
   };
 
   return (
-    <Button variant={variant} onClick={handleClick} style={style}>
+    <Button $variant={variant} onClick={handleClick} style={style}>
       {children}
     </Button>
   );

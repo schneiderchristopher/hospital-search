@@ -1,9 +1,8 @@
 import styled, { css } from "styled-components";
 
 interface InputProps {
-  variant?: "primary" | "secondary" | "accent";
-  label: string;
-  error?: boolean;
+  $variant?: "primary" | "secondary" | "accent";
+  $error?: boolean;
 }
 
 const primary = css`
@@ -33,7 +32,7 @@ const Input = styled.input<InputProps>`
 
   &:focus {
     ${(props) => {
-      if (props.error) return accent;
+      if (props.$error) return accent;
       return css`
         border-color: var(--input-focus-border);
       `;
@@ -42,8 +41,8 @@ const Input = styled.input<InputProps>`
   }
 
   ${(props) => {
-    if (props.variant === "secondary") return secondary;
-    if (props.variant === "accent" || props.error) return accent;
+    if (props.$variant === "secondary") return secondary;
+    if (props.$variant === "accent" || props.$error) return accent;
     return primary;
   }}
 `;

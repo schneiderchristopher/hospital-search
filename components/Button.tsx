@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 interface ButtonProps {
-  variant?: "primary" | "secondary" | "accent";
+  $variant?: "primary" | "secondary" | "accent";
 }
 
 const primary = css`
@@ -26,8 +26,8 @@ const Button = styled.button<ButtonProps>`
   transition: background-color 0.3s ease;
 
   ${(props) => {
-    if (props.variant === "secondary") return secondary;
-    if (props.variant === "accent") return accent;
+    if (props.$variant === "secondary") return secondary;
+    if (props.$variant === "accent") return accent;
     return primary;
   }}
 

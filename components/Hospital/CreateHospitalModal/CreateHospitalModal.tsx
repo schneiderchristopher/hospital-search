@@ -89,10 +89,10 @@ const CreateHospitalModal: React.FC<ICreateHospitalModalProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <FlexContainer
-        direction="column"
-        width="100%"
-        height="100%"
-        align="flex-start"
+        $direction="column"
+        $width="100%"
+        $height="100%"
+        $align="flex-start"
       >
         <H3>New Hospital</H3>
         <form
@@ -102,34 +102,32 @@ const CreateHospitalModal: React.FC<ICreateHospitalModalProps> = ({
           }}
         >
           <FlexContainer
-            direction="column"
-            justify="center"
-            align="flex-start"
-            gap="1em"
-            height="100%"
-            width="100%"
+            $direction="column"
+            $justify="center"
+            $align="flex-start"
+            $gap="1em"
+            $height="100%"
+            $width="100%"
           >
-            <Label htmlFor="name" errorMesssage={errors.name?.message}>
+            <Label htmlFor="name" $errorMesssage={errors.name?.message}>
               Hospital Name
             </Label>
             <Input
-              label="Hospital Name"
               placeholder="Enter hospital name"
               {...register("name")}
-              error={errors.name ? true : false}
+              $error={errors.name ? true : false}
             />
 
-            <Label htmlFor="location" errorMesssage={errors.location?.message}>
+            <Label htmlFor="location" $errorMesssage={errors.location?.message}>
               Location
             </Label>
             <Input
-              label="Location Name"
               placeholder="Eg: HOUSTON, TX"
               {...register("location")}
-              error={errors.location ? true : false}
+              $error={errors.location ? true : false}
             />
 
-            <Label htmlFor="plans" errorMesssage={errors.plans?.message}>
+            <Label htmlFor="plans" $errorMesssage={errors.plans?.message}>
               Plans
             </Label>
             <Controller
@@ -150,16 +148,16 @@ const CreateHospitalModal: React.FC<ICreateHospitalModalProps> = ({
           </FlexContainer>
 
           <FlexContainer
-            justify="flex-end"
-            align="center"
-            gap="0.5em"
-            margin="2em 0 0 0"
-            width="100%"
+            $justify="flex-end"
+            $align="center"
+            $gap="0.5em"
+            $margin="2em 0 0 0"
+            $width="100%"
           >
-            <Button variant="secondary" onClick={onClose}>
+            <Button $variant="secondary" onClick={onClose}>
               Cancel
             </Button>
-            <Button variant="primary" type="submit">
+            <Button $variant="primary" type="submit">
               Create
             </Button>
           </FlexContainer>
