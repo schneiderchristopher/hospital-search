@@ -1,6 +1,11 @@
 import { IHospital } from "@/models/hospital";
 import { IPlan } from "@/models/plan";
 
+// This is a mocked backend service that simulates the behavior of a real backend service.
+// It contains functions that mimic the behavior of a real backend service.
+// This service is used to seed the initial data for the application.
+// Theres some functions here that I decided to not use in the application, but they are here for reference.
+
 export function seedPlans() {
   const plans: IPlan[] = [
     {
