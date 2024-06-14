@@ -71,9 +71,6 @@ export default function Home() {
           )
         );
       });
-      const start = (currentPage - 1) * 3;
-      const end = start + 3;
-
       const { paginatedHospitals, totalPages } = paginateHospitals(
         filtered,
         currentPage,
