@@ -1,18 +1,18 @@
 import { useForm, Controller, ControllerRenderProps } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ActionMeta, MultiValue } from "react-select";
+import CreatableSelect from "react-select/creatable";
 import FlexContainer from "@/components/ContainerFlex";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import { H3 } from "@/components/Typography";
 import Input from "@/components/Input";
+import Label from "@/components/Label";
+import { IPlan } from "@/models/plan";
 import {
   createHospitalInput,
   createHospitalSchema,
 } from "@/schemas/Hospitals/CreateHospitalSchema";
-import Label from "@/components/Label";
-import { IPlan } from "@/models/plan";
-import { ActionMeta, MultiValue } from "react-select";
-import CreatableSelect from "react-select/creatable";
 
 interface ICreateHospitalModalProps {
   isOpen: boolean;
