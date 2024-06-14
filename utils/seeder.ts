@@ -1,7 +1,7 @@
 import { IHospital } from "@/models/hospital";
 import { IPlan } from "@/models/plan";
 
-export function createPlans() {
+export function seedPlans() {
   const plans: IPlan[] = [
     {
       id: 1,
@@ -27,8 +27,8 @@ export function createPlans() {
   return plans;
 }
 
-export function createHospitals() {
-  const plans = createPlans();
+export function seedHospitals() {
+  const plans = seedPlans();
   const hospitals: IHospital[] = [
     {
       id: 1,

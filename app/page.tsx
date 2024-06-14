@@ -10,11 +10,11 @@ import PaginationGroup from "@/components/Pagination/PaginationGroup";
 import { H1, H2 } from "@/components/Typography";
 import { createHospitalInput } from "@/schemas/Hospitals/CreateHospitalSchema";
 import { IHospital } from "@/models/hospital";
-import { addHospital, createHospitals, seedPlans } from "@/utils/seeder";
+import { addHospital, seedHospitals, seedPlans } from "@/utils/seeder";
 import { createPlans, paginateHospitals } from "@/utils/HospitalUtils";
 
 export default function Home() {
-  const [hospitals, setHospitals] = useState(createHospitals());
+  const [hospitals, setHospitals] = useState(seedHospitals());
   const [plans, setPlans] = useState(seedPlans());
   const [filteredHospitals, setFilteredHospitals] = useState(hospitals);
   const [query, setQuery] = useState("");
