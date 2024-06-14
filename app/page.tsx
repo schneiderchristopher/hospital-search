@@ -10,17 +10,13 @@ import PaginationGroup from "@/components/Pagination/PaginationGroup";
 import { H1, H2 } from "@/components/Typography";
 import { createHospitalInput } from "@/schemas/Hospitals/CreateHospitalSchema";
 import { IHospital } from "@/models/hospital";
-import {
-  addHospital,
-  addPlan,
-  createHospitals,
-  createPlans,
-} from "@/utils/seeder";
+import { addHospital, createHospitals, seedPlans } from "@/utils/seeder";
+import { createPlans, paginateHospitals } from "@/utils/HospitalUtils";
 
 export default function Home() {
   const [hospitals, setHospitals] = useState(createHospitals());
+  const [plans, setPlans] = useState(seedPlans());
   const [filteredHospitals, setFilteredHospitals] = useState(hospitals);
-  const [plans, setPlans] = useState(createPlans());
   const [query, setQuery] = useState("");
   const [debounceQuery] = useDebounce(query, 800);
 
@@ -35,19 +31,7 @@ export default function Home() {
 
   const handleCreate = (data: createHospitalInput) => {
     if (data.plans && data.plans.length > 0) {
-      const newPlans = data.plans.filter((plan) => {
-        return !plans.some((p) => p.name === plan.value.name);
-      });
-      if (newPlans.length > 0) {
-        newPlans.forEach((plan) => {
-          setPlans(
-            addPlan({
-              plan: { id: plan.value.id, name: plan.value.name },
-              plansRef: plans,
-            })
-          );
-        });
-      }
+      setPlans(createPlans(data.plans, plans));
     }
 
     const hospital: IHospital = {
@@ -89,12 +73,15 @@ export default function Home() {
       });
       const start = (currentPage - 1) * 3;
       const end = start + 3;
-      setFilteredHospitals(filtered.slice(start, end));
-      setTotalPages(Math.ceil(filtered.length / 3));
-      if (query === "") {
-        setTotalPages(Math.ceil(hospitals.length / 3));
-        setFilteredHospitals(hospitals.slice(start, end));
-      }
+
+      const { paginatedHospitals, totalPages } = paginateHospitals(
+        filtered,
+        currentPage,
+        query
+      );
+      if (currentPage > totalPages) setCurrentPage(totalPages);
+      setTotalPages(totalPages);
+      setFilteredHospitals(paginatedHospitals);
     },
     [hospitals, currentPage]
   );
@@ -106,12 +93,6 @@ export default function Home() {
   useEffect(() => {
     setTotalPages(Math.ceil(hospitals.length / 3));
   }, [hospitals.length]);
-
-  useEffect(() => {
-    if (totalPages < currentPage) {
-      setCurrentPage(totalPages);
-    }
-  }, [totalPages, currentPage]);
 
   return (
     <FlexContainer
