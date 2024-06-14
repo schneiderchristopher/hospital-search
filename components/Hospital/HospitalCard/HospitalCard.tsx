@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import TagItem from "./Tag/Tag";
-import { IPlan } from "@/models/plan";
-import { IHospital } from "@/models/hospital";
-import IconButton from "../../IconButton";
 import { FaTrash } from "react-icons/fa6";
+import TagItem from "./Tag/Tag";
+import IconButton from "../../IconButton";
 import FlexContainer from "../../ContainerFlex";
 import DeleteModal from "./DeleteModal/DeleteModal";
+import { IPlan } from "@/models/plan";
+import { IHospital } from "@/models/hospital";
 import { removeHospital } from "@/utils/seeder";
 
 import {
