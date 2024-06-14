@@ -13,19 +13,13 @@ import {
   createHospitalInput,
   createHospitalSchema,
 } from "@/schemas/Hospitals/CreateHospitalSchema";
+import { PlanValue, updateOptions } from "@/utils/HospitalUtils";
 
 interface ICreateHospitalModalProps {
   isOpen: boolean;
   onClose: () => void;
   onCreate: (data: createHospitalInput) => void;
   plans: IPlan[];
-}
-
-interface PlanValue {
-  value: {
-    name: string;
-    id: number;
-  };
 }
 
 const CreateHospitalModal: React.FC<ICreateHospitalModalProps> = ({
@@ -69,19 +63,7 @@ const CreateHospitalModal: React.FC<ICreateHospitalModalProps> = ({
     >
   ) => {
     if (actionMeta.action === "create-option") {
-      const newOption = {
-        ...value[value.length - 1],
-        value: {
-          id: value.length + plans.length,
-          name: value[value.length - 1].value,
-        },
-      };
-      const newValue = value.map((val) => {
-        if (val.value.id === value[value.length - 1].value.id) {
-          return newOption;
-        }
-        return val;
-      });
+      const newValue = updateOptions(value, plans);
       field.onChange(newValue);
     }
   };

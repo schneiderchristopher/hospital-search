@@ -2,6 +2,14 @@ import { IPlan } from "@/models/plan";
 import { createHospitalInput } from "@/schemas/Hospitals/CreateHospitalSchema";
 import { addPlan } from "./seeder";
 import { IHospital } from "@/models/hospital";
+import { MultiValue } from "react-select";
+
+export interface PlanValue {
+  value: {
+    name: string;
+    id: number;
+  };
+}
 
 export const createPlans = (
   plans: createHospitalInput["plans"],
@@ -43,4 +51,21 @@ export const paginateHospitals = (
   }
 
   return { paginatedHospitals, totalPages };
+};
+
+export const updateOptions = (value: MultiValue<PlanValue>, plans: IPlan[]) => {
+  const newOption = {
+    ...value[value.length - 1],
+    value: {
+      id: value.length + plans.length,
+      name: value[value.length - 1].value,
+    },
+  };
+  const newValue = value.map((val) => {
+    if (val.value.id === value[value.length - 1].value.id) {
+      return newOption;
+    }
+    return val;
+  });
+  return newValue;
 };
