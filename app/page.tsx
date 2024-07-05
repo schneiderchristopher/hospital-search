@@ -1,12 +1,12 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
-import FlexContainer from "@/components/ContainerFlex";
+import FlexContainer from "@/components/FlexContainer";
 import Search from "@/components/Search";
-import HospitalCard from "@/components/Hospital/HospitalCard/HospitalCard";
+import HospitalCard from "@/components/Hospital/HospitalCard/";
 import Button from "@/components/Button";
-import CreateHospitalModal from "@/components/Hospital/CreateHospitalModal/CreateHospitalModal";
-import PaginationGroup from "@/components/Pagination/PaginationGroup";
+import CreateHospitalModal from "@/components/Hospital/CreateHospitalModal";
+import Pagination from "@/components/Pagination";
 import { H1, H2 } from "@/components/Typography";
 import { createHospitalInput } from "@/schemas/Hospitals/CreateHospitalSchema";
 import { IHospital } from "@/models/hospital";
@@ -124,7 +124,7 @@ export default function Home() {
           ))}
         </ul>
       </FlexContainer>
-      <PaginationGroup
+      <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onChange={handlePageChange}

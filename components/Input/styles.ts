@@ -15,7 +15,7 @@ const accent = css`
   border-color: var(--accent-color);
 `;
 
-const Input = styled.input<InputProps>`
+export const Input = styled.input<InputProps>`
   padding: 0.5em;
   border: 1px solid var(--input-border);
   border-radius: 4px;
@@ -46,5 +46,3 @@ const Input = styled.input<InputProps>`
     return primary;
   }}
 `;
-
-export default Input;

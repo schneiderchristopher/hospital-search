@@ -1,37 +1,9 @@
 import styled from "styled-components";
+import { IFlexContainerProps } from ".";
 
-interface FlexContainerProps {
-  $direction?: "row" | "column";
-  $align?:
-    | "stretch"
-    | "center"
-    | "flex-start"
-    | "flex-end"
-    | "baseline"
-    | "initial"
-    | "inherit";
-  $justify?:
-    | "flex-start"
-    | "flex-end"
-    | "center"
-    | "space-between"
-    | "space-around"
-    | "space-evenly";
-  $wrap?: "nowrap" | "wrap" | "wrap-reverse";
-  $gap?: string;
-  $padding?: string;
-  $margin?: string;
-  $width?: string;
-  $height?: string;
-  $bgcolor?: string;
-  $position?: "relative" | "absolute" | "fixed" | "sticky";
-  $top?: string;
-  $right?: string;
-  $bottom?: string;
-  $left?: string;
-}
+interface IFlexContainerStyleProps extends IFlexContainerProps {}
 
-const FlexContainer = styled.div<FlexContainerProps>`
+export const FlexContainer = styled.div<IFlexContainerStyleProps>`
   display: flex;
   flex-direction: ${(props) => props.$direction || "row"};
   align-items: ${(props) => props.$align || "stretch"};
@@ -49,5 +21,3 @@ const FlexContainer = styled.div<FlexContainerProps>`
   bottom: ${(props) => props.$bottom || "auto"};
   left: ${(props) => props.$left || "auto"};
 `;
-
-export default FlexContainer;

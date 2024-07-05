@@ -17,7 +17,7 @@ const accent = css`
   color: #ffffff;
 `;
 
-const Button = styled.button<ButtonProps>`
+export const Button = styled.button<ButtonProps>`
   padding: 0.5em 1em;
   border: none;
   border-radius: 4px;
@@ -35,5 +35,3 @@ const Button = styled.button<ButtonProps>`
     opacity: 0.9;
   }
 `;
-
-export default Button;

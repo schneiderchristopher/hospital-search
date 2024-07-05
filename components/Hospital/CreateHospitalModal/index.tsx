@@ -2,7 +2,7 @@ import { useForm, Controller, ControllerRenderProps } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ActionMeta, MultiValue } from "react-select";
 import CreatableSelect from "react-select/creatable";
-import FlexContainer from "@/components/ContainerFlex";
+import FlexContainer from "@/components/FlexContainer";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import { H3 } from "@/components/Typography";
@@ -32,6 +32,7 @@ const CreateHospitalModal: React.FC<ICreateHospitalModalProps> = ({
     register,
     handleSubmit,
     control,
+    getValues,
     formState: { errors },
   } = useForm<createHospitalInput>({
     resolver: zodResolver(createHospitalSchema),
@@ -49,6 +50,8 @@ const CreateHospitalModal: React.FC<ICreateHospitalModalProps> = ({
   const onSubmit = (data: createHospitalInput) => {
     onCreate(data);
   };
+
+  console.log(getValues());
 
   const handleChange = (
     value: MultiValue<PlanValue>,

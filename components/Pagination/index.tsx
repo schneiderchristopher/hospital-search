@@ -1,13 +1,13 @@
 import PaginationButton from "./PaginationButton";
-import FlexContainer from "../ContainerFlex";
+import FlexContainer from "../FlexContainer";
 
-interface IPaginationGroup {
+interface IPagination {
   currentPage: number;
   totalPages: number;
   onChange: (page: number) => void;
 }
 
-const PaginationGroup: React.FC<IPaginationGroup> = ({
+const Pagination: React.FC<IPagination> = ({
   currentPage,
   totalPages,
   onChange,
@@ -28,4 +28,4 @@ const PaginationGroup: React.FC<IPaginationGroup> = ({
   );
 };
 
-export default PaginationGroup;
+export default Pagination;

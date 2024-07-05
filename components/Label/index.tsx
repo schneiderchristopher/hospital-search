@@ -1,34 +1,22 @@
-import styled from "styled-components";
+import * as S from "./styles";
 
-interface ILabelProps {
-  htmlFor: string;
-  children: React.ReactNode;
+interface ILabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   $errorMesssage?: string;
   $required?: boolean;
 }
-
-const LabelStyle = styled.label`
-  display: flex;
-  align-items: center;
-  span {
-    font-size: 0.8em;
-    color: red;
-    margin-left: 5px;
-  }
-`;
-
 const Label: React.FC<ILabelProps> = ({
   htmlFor,
   children: children,
   $errorMesssage: errorMesssage,
   $required: required,
+  ...props
 }) => {
   return (
-    <LabelStyle htmlFor={htmlFor}>
+    <S.Label {...props}>
       {children}
       {required && <span>*</span>}
       {errorMesssage && <span>{errorMesssage}</span>}
-    </LabelStyle>
+    </S.Label>
   );
 };
 

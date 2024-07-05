@@ -1,13 +1,6 @@
-import { MouseEventHandler } from "react";
 import styled from "styled-components";
 
-interface IPaginationButton {
-  number: number;
-  active: boolean;
-  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
-}
-
-const PaginationButtonStyle = styled.button`
+export const PaginationButton = styled.button`
   background-color: var(--button-primary-bg);
   border: 1px solid var(--button-border-color);
   border-radius: 5px;
@@ -40,20 +33,3 @@ const PaginationButtonStyle = styled.button`
     }
   }
 `;
-
-const PaginationButton: React.FC<IPaginationButton> = ({
-  number,
-  active,
-  onClick,
-}) => {
-  return (
-    <PaginationButtonStyle
-      onClick={onClick}
-      className={`pagination-button ${active ? "active" : ""}`}
-    >
-      {number}
-    </PaginationButtonStyle>
-  );
-};
-
-export default PaginationButton;

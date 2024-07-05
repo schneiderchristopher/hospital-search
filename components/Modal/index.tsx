@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import { FaX } from "react-icons/fa6";
-import IconButton from "./IconButton";
-import FlexContainer from "./ContainerFlex";
+import IconButton from "../IconButton";
+import FlexContainer from "../FlexContainer";
 interface IModalProps {
   isOpen: boolean;
   onClose: () => void;

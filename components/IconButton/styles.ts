@@ -17,7 +17,7 @@ const text = css`
   color: var(--text-color);
 `;
 
-const Button = styled.button<IButtonProps>`
+export const Button = styled.button<IButtonProps>`
   background: transparent;
   border: none;
   padding: 0;
@@ -35,30 +35,3 @@ const Button = styled.button<IButtonProps>`
     return primary;
   }}
 `;
-
-interface IIconProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "accent" | "text";
-  children?: React.ReactNode;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  style?: React.CSSProperties;
-}
-
-const IconButton: React.FC<IIconProps> = ({
-  children,
-  variant,
-  onClick,
-  style,
-}) => {
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    onClick && onClick(e);
-  };
-
-  return (
-    <Button $variant={variant} onClick={handleClick} style={style}>
-      {children}
-    </Button>
-  );
-};
-
-export default IconButton;

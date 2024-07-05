@@ -1,4 +1,4 @@
-import FlexContainer from "@/components/ContainerFlex";
+import FlexContainer from "@/components/FlexContainer";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import { H3, Text } from "@/components/Typography";
