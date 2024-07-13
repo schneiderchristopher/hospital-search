@@ -51,8 +51,6 @@ const CreateHospitalModal: React.FC<ICreateHospitalModalProps> = ({
     onCreate(data);
   };
 
-  console.log(getValues());
-
   const handleChange = (
     value: MultiValue<PlanValue>,
     actionMeta: ActionMeta<PlanValue>,
