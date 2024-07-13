@@ -32,7 +32,6 @@ const CreateHospitalModal: React.FC<ICreateHospitalModalProps> = ({
     register,
     handleSubmit,
     control,
-    getValues,
     formState: { errors },
   } = useForm<createHospitalInput>({
     resolver: zodResolver(createHospitalSchema),
